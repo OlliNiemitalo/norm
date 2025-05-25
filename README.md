@@ -1,4 +1,16 @@
-Optimize polynomial coefficients for Newton-Schulz iteration, using Differential Evolution.
+Optimize polynomial coefficients for Muon Newton-Schulz iteration, using Differential Evolution.
+
+Compile:
+
+```shell
+g++ optimize.cpp opti.cpp -ffast-math -march=native -O3 -Wno-unused-result
+```
+
+Run:
+
+```shell
+./a.out
+```
 
 Current best result for x = [0.001, 1.010916328]:
 
