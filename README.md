@@ -14,7 +14,7 @@ Run:
 
 The code picks a desired number of x values for error (cost) evaluation, using not uniform distribution over the requested interval but by adding more points near the ends, similar to Chebyshev nodes. In the beginning of the optimization, mean square error is used as a proxy for max abs error and between desired steps the error used is ramped linearly to max abs error. The coefficient of the linear term is shared between all polynomials. Otherwise the results might differ in a redundant way between optimization runs.
 
-The current optimization problem parameters are: Ramp between steps 500k and 1M, 5 polynomials, 5th degree polynomials, optimization x interval 0.001 to 1.010916328. The current Differential Evolution parameters are: cross-over 0.999, weight of difference 0.76, population size 1000.
+The current optimization problem parameters are: 8192 sample points, ramp between steps 500k and 1M (ramp will take place well before optimization convergence), 5 polynomials, 5th degree polynomials, optimization x interval 0.001 to 1.010916328. The current Differential Evolution parameters are: cross-over 0.999, weight of difference 0.76, population size 1000.
 
 Current best result for x = [0.001, 1.010916328], plotted in [Desmos](https://www.desmos.com/calculator):
 
