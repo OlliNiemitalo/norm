@@ -34,7 +34,7 @@ Best cost 0.115707
 
 Some coefficients are quite big! And the intermediate values go to almost zero. Numerically it's not good.
 
-This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.org/abs/2505.16932), found by printing `l` and `u` after each iteration of their code and subtracting 1 from the last `u`.
+This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.org/abs/2505.16932), found by printing `l` and `u` after each iteration of their code and subtracting 1 from the last `u`. I got my x range endpoints by numerically solving the x for which the composite function is `l` and `u`.
 
 ```
 0.008205137512087042 1.991794862487913
