@@ -12,7 +12,7 @@ Run:
 ./a.out
 ```
 
-Current best result for x = [0.001, 1.010916328]:
+Current best result for x = [0.001, 1.010916328], plotted in [Desmos](https://www.desmos.com/calculator):
 
 ![image](https://github.com/user-attachments/assets/61c2ee6a-5571-478c-a603-8f54b391dd21)
 
