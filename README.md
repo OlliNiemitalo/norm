@@ -14,7 +14,7 @@ Run:
 
 Current best result for x = [0.001, 1.010916328], plotted in [Desmos](https://www.desmos.com/calculator):
 
-![image](https://github.com/user-attachments/assets/61c2ee6a-5571-478c-a603-8f54b391dd21)
+![image](https://github.com/user-attachments/assets/0806a8c9-04e8-42a1-ac64-88910a0bc7b5)
 
 ```
 (4.01528731974196961829, -11.64682000026122210556, 8.45593805664630160379),
