@@ -49,4 +49,4 @@ This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.
 2.304016813944474*x^1 + -1.6427206546268964*x^3 + 0.4009100949022211*x^5
 ```
 
-I don't know if their result was affected by their numerical safety considerations but it's not optimal in max abs sense.
+I don't know if their result was affected by their numerical safety considerations but it's not optimal in minimum max abs error sense.
