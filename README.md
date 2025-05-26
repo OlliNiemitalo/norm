@@ -1,5 +1,7 @@
 Optimize polynomial coefficients for Muon Newton-Schulz iteration, using Differential Evolution.
 
+This work is placed in the public domain / CC0.
+
 Compile:
 
 ```shell
