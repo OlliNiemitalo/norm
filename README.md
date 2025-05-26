@@ -41,11 +41,13 @@ Some coefficients are quite big! And the intermediate values go to almost zero. 
 This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.org/abs/2505.16932), found by printing `l` and `u` after each iteration of their code and subtracting 1 from the last `u`. I got my x range endpoints by numerically solving the x for which the composite function is `l` and `u`.
 
 ```
+l u
 0.008205137512087042 1.991794862487913
 0.033368021342595415 1.9666319786574047
 0.13048059786589022 1.8695194021341097
 0.4259904513958469 1.574009548604153
 0.8601249919927162 1.1398750080072837
+
 8.205160414005569*x^1 + -22.90193498705604*x^3 + 16.460724910180307*x^5
 4.066915619879589*x^1 + -2.861284534588477*x^3 + 0.5183804464778609*x^5
 3.9134926112054607*x^1 + -2.824251876723087*x^3 + 0.5248485625148532*x^5
