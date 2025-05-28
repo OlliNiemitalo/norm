@@ -38,9 +38,7 @@ Current best result for x = [0.001, 1.010916328], plotted in [Desmos](https://ww
 Best cost 0.115707
 ```
 
-Some coefficients are quite big! And the intermediate values go to almost zero. Numerically it's not good.
-
-This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.org/abs/2505.16932), found by printing `l` and `u` after each iteration of their code and subtracting 1 from the last `u`. I got my x range endpoints by numerically solving the x for which the composite function is `l` and `u`.
+This can be compared to cost 0.1398750080072837 of Polar Express (https://arxiv.org/abs/2505.16932), found by printing `l` and `u` after each iteration of their code and subtracting 1 from the last `u`. I got my x range endpoints by numerically solving the x for which the composite function is equal to `l` or `u`.
 
 ```
 l u
@@ -57,7 +55,7 @@ l u
 2.304016813944474*x^1 + -1.6427206546268964*x^3 + 0.4009100949022211*x^5
 ```
 
-I don't know if their result was affected by their numerical safety considerations but it's not optimal in minimum max abs error sense. Comparison of my f(x) and their g(x) composite functions:
+Naively looking it's not optimal in minimum max abs error sense, but they do include a safety margin at every iteration rather than just in the beginning as I do (I guess). Intuitively their "greedy is optimal" theory seems correct. Comparison of my f(x) and their g(x) composite functions:
 
 ![image](https://github.com/user-attachments/assets/7bb54ee5-ce6f-4a27-aef8-de2157553f65)
 
@@ -65,6 +63,6 @@ I don't know if their result was affected by their numerical safety consideratio
 
 ![image](https://github.com/user-attachments/assets/49feba92-a0de-4e0a-bf5c-e632215b2c6f)
 
-Interestingly, kind of in line with their "greedy is optimal", truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2$ stationary points (counting also those for negative x) for each degree- $5^k$ composition of the $k$ first degree-5 polynomials:
+Truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2$ stationary points (counting also those for negative x) for each degree- $5^k$ composition of the $k$ first degree-5 polynomials:
 
 ![image](https://github.com/user-attachments/assets/af3061b2-43e9-4738-872f-a8925b06ac55)
