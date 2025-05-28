@@ -57,7 +57,11 @@ l u
 2.304016813944474*x^1 + -1.6427206546268964*x^3 + 0.4009100949022211*x^5
 ```
 
-I don't know if their result was affected by their numerical safety considerations but it's not optimal in minimum max abs error sense. Comparison of my f(x) and their g(x):
+I don't know if their result was affected by their numerical safety considerations but it's not optimal in minimum max abs error sense. Comparison of my f(x) and their g(x) composite functions:
 
 ![image](https://github.com/user-attachments/assets/7bb54ee5-ce6f-4a27-aef8-de2157553f65)
+
+![image](https://github.com/user-attachments/assets/bec0d51e-dec8-4c6d-add7-16dcb3047596)
+
+![image](https://github.com/user-attachments/assets/49feba92-a0de-4e0a-bf5c-e632215b2c6f)
 
