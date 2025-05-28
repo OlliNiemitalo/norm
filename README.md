@@ -65,6 +65,6 @@ I don't know if their result was affected by their numerical safety consideratio
 
 ![image](https://github.com/user-attachments/assets/49feba92-a0de-4e0a-bf5c-e632215b2c6f)
 
-Interestingly, kind of in line with their "greedy is optimal", truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2$ stationary points (counting also those for negative x) for each degree-$5^k$ composition of the $k$ first degree-5 polynomials:
+Interestingly, kind of in line with their "greedy is optimal", truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2$ stationary points (counting also those for negative x) for each degree- $5^k$ composition of the $k$ first degree-5 polynomials:
 
 ![image](https://github.com/user-attachments/assets/af3061b2-43e9-4738-872f-a8925b06ac55)
