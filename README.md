@@ -14,6 +14,8 @@ Run:
 ./a.out
 ```
 
+## Version 1: no cushioning, no cumulative error
+
 The code picks a desired number of x values for error (cost) evaluation, using not uniform distribution over the requested interval but by adding more points near the ends, similar to Chebyshev nodes. In the beginning of the optimization, mean square error is used as a proxy for max abs error and between desired steps the error used is ramped linearly to max abs error. The coefficient of the linear term is shared between all polynomials. Otherwise the results might differ in a redundant way between optimization runs.
 
 The current optimization problem parameters are: 8192 sample points, ramp between steps 500k and 1M (ramp will take place well before optimization convergence), 5 polynomials, 5th degree polynomials, optimization x interval 0.001 to 1.010916328. The current Differential Evolution parameters are: cross-over 0.999, weight of difference 0.76, population size 1000.
@@ -66,3 +68,25 @@ Naively looking it's not optimal in minimum max abs error sense, but they do inc
 Truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2$ stationary points (counting also those for negative x) for each degree- $5^k$ composition of the $k$ first degree-5 polynomials:
 
 ![image](https://github.com/user-attachments/assets/af3061b2-43e9-4738-872f-a8925b06ac55)
+
+## With cumulative error
+
+After including a multiplicative error of 1.01 at every iteration, the cost is a bit higher, 0.12699088619263654287.
+
+```
+(3.99990343210967980170, -11.85492974404629151763, 8.79497749534500172786),
+(3.99990343210967980170, -13.06748105415276128838, 10.72753980176574906125),
+(3.99990343210967980170, -14.06240807652527990967, 12.63050665684581197468),
+(3.99990343210967980170, -13.66881536261321627990, 12.78696994042186574347),
+(3.99990343210967980170, -8.89535121077442525461, 6.85342936734867347326),
+
+3.99990343210967980170 x^1 + -11.85492974404629151763 x^3 + 8.79497749534500172786 x^5
+3.99990343210967980170 x^1 + -13.06748105415276128838 x^3 + 10.72753980176574906125 x^5
+3.99990343210967980170 x^1 + -14.06240807652527990967 x^3 + 12.63050665684581197468 x^5
+3.99990343210967980170 x^1 + -13.66881536261321627990 x^3 + 12.78696994042186574347 x^5
+3.99990343210967980170 x^1 + -8.89535121077442525461 x^3 + 6.85342936734867347326 x^5
+
+Best cost 0.126991
+```
+
+I tried to also include something similar to their "cushion", but it led to promoting exceedingly large coefficients in the polynomials so I ditched that effort.

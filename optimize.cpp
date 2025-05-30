@@ -2,6 +2,7 @@
 #include <math.h>
 #include "keyboard.h"
 #include "opti.hpp"
+#include <limits>
 
 class NormProblem : public Opti::Problem {
 private:
@@ -11,13 +12,12 @@ private:
   double *max;
   double *x;
   double *y;
+  double error_multiplier;
 
 public:
 
-  double ramp;
-
   // numParams must be odd
-  NormProblem(int numParams, int numSamples, double startX, double endX, double ramp, double* candidate = NULL) : numParams(numParams), numSamples(numSamples), ramp(ramp) {
+  NormProblem(int numParams, int numSamples, double startX = 0.001, double endX = 1.0, double error_multiplier = 1.01, double* candidate = NULL) : numParams(numParams), numSamples(numSamples), error_multiplier(error_multiplier) {
     min = new double[numParams];
     max = new double[numParams];
     x = new double[numSamples];
@@ -61,7 +61,7 @@ public:
     printf("\n");
     for (int i = 0; i < numParams; i += 3) {
       for (int j = 0; j < 3; j++) {
-        printf("%.20f x^%d + ", params[i+j], j*2+1);
+        printf(j < 2? "%.20f x^%d + " : "%.20f x^%d", params[i+j], j*2+1);
       }
       printf("\n");
     }
@@ -70,25 +70,32 @@ public:
 
   double costFunction(double *params, double compare) {
     double maxAbsErr = 0.0;
-    double accu = 0.0;
     params[0] = fabs(params[0]);
-    for (int j = 0; j < numParams; j += 3) {
-      params[j] = params[0];
+    for (int j = 0; j*3 < numParams; j++) {
+      params[j*3] = params[0];
     }
     for (int i = 0; i < numSamples; i++) {
       double y = x[i];
-      for (int j = 0; j < numParams; j += 3) {
-        y = params[j]*y + params[j+1]*(y*(y*y)) + params[j+2]*(y*(y*y)*(y*y));
+      double y_plus_error = x[i];
+      for (int j = 0; j < numParams/3; j++) {
+        double orig_y = y;
+        double orig_y_plus_error = y_plus_error;
+        y = params[j*3]*y + params[j*3+1]*(y*(y*y)) + params[j*3+2]*(y*(y*y)*(y*y));
+        y_plus_error = params[j*3]*y_plus_error + params[j*3+1]*(y_plus_error*(y_plus_error*y_plus_error)) + params[j*3+2]*(y_plus_error*(y_plus_error*y_plus_error)*(y_plus_error*y_plus_error));
+        if (y_plus_error < y) {
+          std::swap(y, y_plus_error);
+        }
+        y_plus_error *= error_multiplier;
       }
-      accu += (y - 1.0)*(y - 1.0);
-      double absErr = fabs(y - 1.0);
+      double absErr = std::max(fabs(y_plus_error - 1.0), fabs(y - 1.0));
       if (absErr > maxAbsErr) {
         maxAbsErr = absErr;
+        if (maxAbsErr > compare) {
+          return compare;
+        }
       }
     }
-    double rms = sqrt(accu/numSamples);
-    double retval = rms + ramp*(maxAbsErr - rms);
-    return retval;
+    return maxAbsErr;
   } 
 
   int getNumDimensions() {
@@ -104,25 +111,17 @@ public:
 
 int main() {
   INITKEYBOARD;
-  int rampStart =  500000;
-  int rampEnd   = 1000000;
-  NormProblem problem(3*5, 8193, 0.001, 1.010916328, 0.0);
+  NormProblem problem(3*5, 257, 0.001, 1.0, 1.01);  // Would also use cushion=0.029158505 but cushion is not implemented
   Opti::DERecombinator deRecombinator(0.999, 0.76);
   Opti::DE optimizer(&problem, 1000, &deRecombinator);
   for(int t = 0;; t++) {
-    if (optimizer.pos == 0) {
-      if (t > rampStart && t <= rampEnd) {
-        problem.ramp = t < rampEnd ? double(t-rampStart)/(rampEnd-rampStart) : 1.0; // Ramp between root mean square error and max abs error
-        optimizer.statistics();  // Recalculate costs for the population because we changed ramp
-      }
-    }
     double bestcost = optimizer.evolve();
     if (!(t % 10000)) {
-      printf("gen=%d, bestcost=%.20f, average=%.20f, ramp=%.5f\n", t, bestcost, optimizer.averageCost(), problem.ramp);
+      printf("gen=%d, bestcost=%.20f, average=%.20f\n", t, bestcost, optimizer.averageCost());
       if (kbhit()) {
         printf("Parameter vector printout:\n");
         problem.print(optimizer.best());
-        printf("Best cost %f\n", problem.costFunction(optimizer.best(), 0));
+        printf("Best cost %f\n", problem.costFunction(optimizer.best(), std::numeric_limits<double>::max()));
         if (getch() == 27) {
           break;
         }
