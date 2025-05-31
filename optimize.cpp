@@ -111,7 +111,7 @@ public:
 
 int main() {
   INITKEYBOARD;
-  NormProblem problem(3*5, 257, 0.001, 1.0, 1.01);  // Would also use cushion=0.029158505 but cushion is not implemented
+  NormProblem problem(3*5, 65537, 0.001, 1.0, 1.01);  // Would also use cushion=0.029158505 but cushion is not implemented
   Opti::DERecombinator deRecombinator(0.999, 0.76);
   Opti::DE optimizer(&problem, 1000, &deRecombinator);
   for(int t = 0;; t++) {
