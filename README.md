@@ -89,4 +89,6 @@ After including a multiplicative error of 1.01 at every iteration, the maximum a
 Best cost 0.127108
 ```
 
+![image](https://github.com/user-attachments/assets/93c7e050-c175-464f-8d1a-8b73c018bfbc)
+
 I also tried to include something similar to their "cushion", but that led to promoting exceedingly large coefficients in the polynomials so I ditched that effort.
