@@ -69,7 +69,7 @@ Truncated compositions using my f(x) are equioscillating, with $2 \times 3^k - 2
 
 ![image](https://github.com/user-attachments/assets/af3061b2-43e9-4738-872f-a8925b06ac55)
 
-## With cumulative error
+## New version with cumulative error
 
 After including a multiplicative error of 1.01 at every iteration, the maximum absolute deviation cost became a bit higher, 0.12710828643358684786. I also removed the RMS error and ramping trick, for simplicity, and still get convergence. I also enabled early-out in the cost function, which now terminates early if the solution proposal won't be used by the evolutionary algorithm based on a lower limit on the cost for the solution proposal.
 
